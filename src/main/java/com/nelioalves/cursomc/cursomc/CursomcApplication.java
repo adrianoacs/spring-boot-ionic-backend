@@ -34,6 +34,7 @@ public class CursomcApplication implements CommandLineRunner {
         var produto2 = new Produto(null, "Impressora", 800.00);
         var produto3 = new Produto(null, "Mouse", 80.00);
 
+
         produto1.getCategorias().addAll(Arrays.asList(categoria1));
         produto2.getCategorias().addAll(Arrays.asList(categoria1, categoria2));
         produto3.getCategorias().addAll(Arrays.asList(categoria1));
