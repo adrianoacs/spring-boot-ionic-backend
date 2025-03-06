@@ -1,6 +1,7 @@
 package com.nelioalves.cursomc.cursomc.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nelioalves.cursomc.cursomc.domain.enums.EstadoPagamento;
 
 import javax.persistence.Entity;
@@ -25,7 +26,7 @@ public abstract class Pagamento implements Serializable {
 
     private Integer estado;
 
-    @JsonBackReference
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "pedido_id")
     @MapsId
