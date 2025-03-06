@@ -8,16 +8,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Pedido implements Serializable {
@@ -32,14 +30,6 @@ public class Pedido implements Serializable {
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
     private Pagamento pagamento;
 
-//    @JsonManagedReference
-//    @ManyToMany
-//    @JoinTable(name = "PEDIDO_PRODUTO",
-//            joinColumns = @JoinColumn(name = "pedido_id"),
-//            inverseJoinColumns = @JoinColumn(name = "produto_id")
-//    )
-//    private List<Produto> produtos = new ArrayList<>();
-
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
@@ -47,6 +37,9 @@ public class Pedido implements Serializable {
     @ManyToOne
     @JoinColumn(name = "endereco_de_entrega_id")
     private Endereco enderecoDeEntrega;
+
+    @OneToMany(mappedBy = "id.pedido")
+    private Set<ItemPedido> itens = new HashSet<>();
 
     public Pedido(){}
 
@@ -81,14 +74,6 @@ public class Pedido implements Serializable {
         this.pagamento = pagamento;
     }
 
-//    public List<Produto> getProdutos() {
-//        return produtos;
-//    }
-//
-//    public void setProdutos(List<Produto> produtos) {
-//        this.produtos = produtos;
-//    }
-
     public Cliente getCliente() {
         return cliente;
     }
@@ -105,6 +90,14 @@ public class Pedido implements Serializable {
         this.enderecoDeEntrega = enderecoDeEntrega;
     }
 
+    public Set<ItemPedido> getItens() {
+        return itens;
+    }
+
+    public void setItens(Set<ItemPedido> itens) {
+        this.itens = itens;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
@@ -116,4 +109,6 @@ public class Pedido implements Serializable {
     public int hashCode() {
         return Objects.hashCode(id);
     }
+
+
 }

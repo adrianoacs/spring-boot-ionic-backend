@@ -5,6 +5,7 @@ import com.nelioalves.cursomc.cursomc.domain.Cidade;
 import com.nelioalves.cursomc.cursomc.domain.Cliente;
 import com.nelioalves.cursomc.cursomc.domain.Endereco;
 import com.nelioalves.cursomc.cursomc.domain.Estado;
+import com.nelioalves.cursomc.cursomc.domain.ItemPedido;
 import com.nelioalves.cursomc.cursomc.domain.Pagamento;
 import com.nelioalves.cursomc.cursomc.domain.PagamentoComBoleto;
 import com.nelioalves.cursomc.cursomc.domain.PagamentoComCartao;
@@ -17,6 +18,7 @@ import com.nelioalves.cursomc.cursomc.repositories.CidadeRepository;
 import com.nelioalves.cursomc.cursomc.repositories.ClienteRepository;
 import com.nelioalves.cursomc.cursomc.repositories.EnderecoRepository;
 import com.nelioalves.cursomc.cursomc.repositories.EstadoRepository;
+import com.nelioalves.cursomc.cursomc.repositories.ItemPedidoRepository;
 import com.nelioalves.cursomc.cursomc.repositories.PagamentoRepository;
 import com.nelioalves.cursomc.cursomc.repositories.PedidoRepository;
 import com.nelioalves.cursomc.cursomc.repositories.ProdutoRepository;
@@ -61,6 +63,9 @@ public class CursomcApplication implements CommandLineRunner {
 
     @Autowired
     private PagamentoRepository pagamentoRepository;
+
+    @Autowired
+    private ItemPedidoRepository itemPedidoRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -110,6 +115,10 @@ public class CursomcApplication implements CommandLineRunner {
         ped2.setPagamento(pagto2);
         cli1.getPedidos().addAll(Arrays.asList(ped1, ped2));
 
+        var ip1 = new ItemPedido(ped1, p1, 0.00, 2000.00, 1);
+        var ip2 = new ItemPedido(ped1, p3, 0.00, 80.00, 2);
+        var ip3 = new ItemPedido(ped2, p2, 100.00, 800.00, 1);
+
         categoriaRepository.saveAll(Arrays.asList(cat1, cat2));
         produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
         estadoRepository.saveAll(Arrays.asList(est2, est1));
@@ -118,5 +127,15 @@ public class CursomcApplication implements CommandLineRunner {
         enderecoRepository.saveAll(Arrays.asList(e1, e2));
         pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
         pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
+        itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
+
+        ped1.getItens().addAll(Arrays.asList(ip1, ip2));
+        ped2.getItens().addAll(Arrays.asList(ip3));
+        p1.getItens().addAll(Arrays.asList(ip1));
+        p2.getItens().addAll(Arrays.asList(ip3));
+        p3.getItens().addAll(Arrays.asList(ip2));
+
+        pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
+        produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
     }
 }
