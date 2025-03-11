@@ -16,5 +16,15 @@
       <option name="name" value="JBoss Community repository" />
       <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="cvc.releases" />
+      <option name="name" value="cvc.releases" />
+      <option name="url" value="http://nexus.cvc.com.br:8081/nexus/content/repositories/releases/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="cvc.snapshots" />
+      <option name="name" value="cvc.snapshots" />
+      <option name="url" value="http://nexus.cvc.com.br:8081/nexus/content/repositories/snapshots/" />
+    </remote-repository>
   </component>
 </project>
