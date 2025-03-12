@@ -1,5 +1,6 @@
 package com.nelioalves.cursomc.cursomc.resources;
 
+import com.nelioalves.cursomc.cursomc.domain.Cliente;
 import com.nelioalves.cursomc.cursomc.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,8 +17,8 @@ public class ClienteResource {
     private ClienteService clienteService;
 
     @RequestMapping(value="/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> find(@PathVariable Integer id) {
-        var cliente = clienteService.buscar(id);
+    public ResponseEntity<Cliente> find(@PathVariable Integer id) {
+        var cliente = clienteService.find(id);
         return ResponseEntity.ok().body(cliente);
     }
 }
