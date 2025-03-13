@@ -4,11 +4,13 @@ import com.nelioalves.cursomc.cursomc.domain.Categoria;
 import com.nelioalves.cursomc.cursomc.dto.CategoriaDTO;
 import com.nelioalves.cursomc.cursomc.services.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -35,6 +37,18 @@ public class CategoriaResource {
                 .map(categoria -> new CategoriaDTO(categoria.getId(), categoria.getNome()))
                 .collect(Collectors.toList());
         return ResponseEntity.ok().body(categoriaDTOList);
+    }
+
+    @RequestMapping(value = "/page", method = RequestMethod.GET)
+    public ResponseEntity<Page<CategoriaDTO>> findPage(
+            @RequestParam(name = "page", defaultValue = "0") Integer page,
+            @RequestParam(name = "linesPerPage", defaultValue = "24") Integer linesPerPage,
+            @RequestParam(name = "orderBy", defaultValue = "nome") String orderBy,
+            @RequestParam(name = "direction", defaultValue = "ASC") String direction) {
+        var categoriaPage = categoriaService.findPage(page, linesPerPage, orderBy, direction);
+        var categoriaDtoPage = categoriaPage.map(categoria ->
+                new CategoriaDTO(categoria.getId(), categoria.getNome()));
+        return ResponseEntity.ok().body(categoriaDtoPage);
     }
 
     @RequestMapping(method = RequestMethod.POST)

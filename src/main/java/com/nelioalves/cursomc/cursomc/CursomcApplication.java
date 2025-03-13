@@ -72,6 +72,11 @@ public class CursomcApplication implements CommandLineRunner {
 
         var cat1 = new Categoria(null, "Informática");
         var cat2 = new Categoria(null, "Escritório");
+        var cat3 = new Categoria(null, "Cama mesa e banho");
+        var cat4 = new Categoria(null, "Eletrônicos");
+        var cat5 = new Categoria(null, "Jardinagem");
+        var cat6 = new Categoria(null, "Decoração");
+        var cat7 = new Categoria(null, "Perfumaria");
 
         var p1 = new Produto(null, "Computador", 2000.00);
         var p2 = new Produto(null, "Impressora", 800.00);
@@ -119,7 +124,7 @@ public class CursomcApplication implements CommandLineRunner {
         var ip2 = new ItemPedido(ped1, p3, 0.00, 80.00, 2);
         var ip3 = new ItemPedido(ped2, p2, 100.00, 800.00, 1);
 
-        categoriaRepository.saveAll(Arrays.asList(cat1, cat2));
+        categoriaRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7));
         produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
         estadoRepository.saveAll(Arrays.asList(est2, est1));
         cidadeRepository.saveAll(Arrays.asList(c2, c3, c1));
