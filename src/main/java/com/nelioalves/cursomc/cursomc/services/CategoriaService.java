@@ -1,6 +1,7 @@
 package com.nelioalves.cursomc.cursomc.services;
 
 import com.nelioalves.cursomc.cursomc.domain.Categoria;
+import com.nelioalves.cursomc.cursomc.dto.CategoriaDTO;
 import com.nelioalves.cursomc.cursomc.repositories.CategoriaRepository;
 import com.nelioalves.cursomc.cursomc.services.exceptions.DataIntegrityException;
 import com.nelioalves.cursomc.cursomc.services.exceptions.ObjectNotFoundException;
@@ -50,6 +51,10 @@ public class CategoriaService {
         }catch (DataIntegrityViolationException e){
             throw new DataIntegrityException("Não é possível deletar uma categoria com produtos vinculados!");
         }
+    }
+
+    public Categoria fromDto(CategoriaDTO categoriaDTO){
+        return new Categoria(categoriaDTO.getId(), categoriaDTO.getNome());
     }
 
 
