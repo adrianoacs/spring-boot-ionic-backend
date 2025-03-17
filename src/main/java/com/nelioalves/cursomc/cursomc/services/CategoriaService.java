@@ -18,36 +18,36 @@ import java.util.List;
 public class CategoriaService {
 
     @Autowired
-    private CategoriaRepository categoriaRepository;
+    private CategoriaRepository repository;
 
     public Categoria find(Integer id){
-        return categoriaRepository.findById(id).orElseThrow(() ->
+        return repository.findById(id).orElseThrow(() ->
                 new ObjectNotFoundException("Não foi encontrada " + Categoria.class.getName() + " para o id " + id));
     }
 
     public List<Categoria> findAll(){
-        return categoriaRepository.findAll();
+        return repository.findAll();
     }
 
     public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
         var pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.fromString(direction), orderBy);
-        return categoriaRepository.findAll(pageRequest);
+        return repository.findAll(pageRequest);
     }
 
     public Categoria insert(Categoria categoria){
         categoria.setId(null);
-        return categoriaRepository.save(categoria);
+        return repository.save(categoria);
     }
 
     public Categoria update (Categoria categoria){
         this.find(categoria.getId());
-        return categoriaRepository.save(categoria);
+        return repository.save(categoria);
     }
 
     public void delete(Integer id){
         find(id);
         try{
-            categoriaRepository.deleteById(id);
+            repository.deleteById(id);
         }catch (DataIntegrityViolationException e){
             throw new DataIntegrityException("Não é possível deletar uma categoria com produtos vinculados!");
         }
