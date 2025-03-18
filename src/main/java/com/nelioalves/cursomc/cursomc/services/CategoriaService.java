@@ -1,6 +1,7 @@
 package com.nelioalves.cursomc.cursomc.services;
 
 import com.nelioalves.cursomc.cursomc.domain.Categoria;
+import com.nelioalves.cursomc.cursomc.domain.Cliente;
 import com.nelioalves.cursomc.cursomc.dto.CategoriaDTO;
 import com.nelioalves.cursomc.cursomc.repositories.CategoriaRepository;
 import com.nelioalves.cursomc.cursomc.services.exceptions.DataIntegrityException;
@@ -39,9 +40,10 @@ public class CategoriaService {
         return repository.save(categoria);
     }
 
-    public Categoria update (Categoria categoria){
-        this.find(categoria.getId());
-        return repository.save(categoria);
+    public Categoria update (Categoria obj){
+        var newObj = this.find(obj.getId());
+        updateData(newObj,  obj);
+        return repository.save(newObj);
     }
 
     public void delete(Integer id){
@@ -57,5 +59,7 @@ public class CategoriaService {
         return new Categoria(categoriaDTO.getId(), categoriaDTO.getNome());
     }
 
-
+    private void updateData(Categoria newObj, Categoria obj) {
+        newObj.setNome(obj.getNome());
+    }
 }

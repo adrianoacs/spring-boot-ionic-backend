@@ -41,8 +41,9 @@ public class ClienteService {
 //    }
 
     public Cliente update (Cliente obj){
-        this.find(obj.getId());
-        return repository.save(obj);
+        var newObj = this.find(obj.getId());
+        updateData(newObj,  obj);
+        return repository.save(newObj);
     }
 
     public void delete(Integer id){
@@ -55,13 +56,11 @@ public class ClienteService {
     }
 
     public Cliente fromDto(ClienteDTO objDto){
-        var newObj = find(objDto.getId());
-        updateData(newObj,  objDto);
-        return repository.save(newObj);
+        return new Cliente(objDto.getId(), objDto.getNome(), objDto.getEmail(), null, null);
     }
 
-    private void updateData(Cliente newObj, ClienteDTO objDto) {
-        newObj.setNome(objDto.getNome());
-        newObj.setEmail(objDto.getEmail());
+    private void updateData(Cliente newObj, Cliente obj) {
+        newObj.setNome(obj.getNome());
+        newObj.setEmail(obj.getEmail());
     }
 }
