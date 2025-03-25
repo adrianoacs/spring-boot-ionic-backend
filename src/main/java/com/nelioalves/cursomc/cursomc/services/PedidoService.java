@@ -16,6 +16,7 @@ public class PedidoService {
     public Pedido find(Integer id) {
         return pedidoRepository.findById(id).orElseThrow(() ->
                 new ObjectNotFoundException(
-                        String.format("Não foi encontrada %s para o id '%s'", Cliente.class.getName(), id)));
+                        String.format("Não foi encontrada %s para o id '%s'", Pedido.class.getName(), id)));
     }
+
 }
