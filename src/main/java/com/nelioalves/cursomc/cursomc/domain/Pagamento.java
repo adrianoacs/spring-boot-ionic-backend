@@ -2,6 +2,7 @@ package com.nelioalves.cursomc.cursomc.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.nelioalves.cursomc.cursomc.domain.enums.EstadoPagamento;
 
 import javax.persistence.Entity;
@@ -18,6 +19,9 @@ import java.util.Objects;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+// a linha abaixo permite que enviemos um objeto que pode ser tanto 'PagamentoComBoleto' / "PagamentoComCartao"
+// na requisição de insert
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
 public abstract class Pagamento implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -34,8 +38,6 @@ public abstract class Pagamento implements Serializable {
 
     public Pagamento() {
     }
-
-    ;
 
     public Pagamento(Integer id, EstadoPagamento estado, Pedido pedido) {
         this.id = id;
