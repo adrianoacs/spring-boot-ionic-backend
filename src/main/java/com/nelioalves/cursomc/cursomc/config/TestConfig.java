@@ -15,7 +15,7 @@ public class TestConfig {
 
     @Bean
     public boolean instantiateDatabase() throws Exception {
-        //service.instantiateDatabase();
+        service.instantiateDatabase();
         return true;
     }
 

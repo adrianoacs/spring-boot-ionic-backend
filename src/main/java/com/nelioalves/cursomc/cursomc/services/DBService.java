@@ -88,7 +88,7 @@ public class DBService {
         est1.getCidades().addAll(Arrays.asList(c1));
         est2.getCidades().addAll(Arrays.asList(c2, c3));
 
-        var cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "36378912377",
+        var cli1 = new Cliente(null, "Adriano Silva", "maria@gmail.com", "36378912377",
                 TipoCliente.PESSOAFISICA);
         cli1.getTelefones().add("27363323");
         cli1.getTelefones().add("93838393");
